@@ -9,23 +9,30 @@ import {
   GridLoadError,
   GridActionTypes
 } from './grid.actions';
+import { GridHttpService } from '../services/grid-http.service';
+import { Target } from '@performance-workshop/shared';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class GridEffects {
   @Effect() loadGrid$ = this.dataPersistence.fetch(GridActionTypes.LoadGrid, {
     run: (action: LoadGrid, state: GridPartialState) => {
-      // Your custom REST 'load' logic goes here. For now just return an empty list...
-      return new GridLoaded([]);
+
+      return this.gridHttpService.get().pipe(
+        map((targets: Target[]) => new GridLoaded(targets))
+      );
     },
 
     onError: (action: LoadGrid, error) => {
       console.error('Error', error);
+
       return new GridLoadError(error);
     }
   });
 
   constructor(
     private actions$: Actions,
-    private dataPersistence: DataPersistence<GridPartialState>
+    private dataPersistence: DataPersistence<GridPartialState>,
+    private gridHttpService: GridHttpService
   ) {}
 }
