@@ -32,6 +32,11 @@ import { HttpClientModule } from '@angular/common/http';
         metaReducers: !environment.production ? [storeFreeze] : []
       }
     ),
+    StoreDevtoolsModule.instrument({
+      name: 'Performance Workshop',
+      logOnly: false,
+      maxAge: 25
+    }),
     EffectsModule.forRoot([GridEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule
