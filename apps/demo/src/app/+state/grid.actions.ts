@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Entity } from './grid.reducer';
+import { Target } from '@performance-workshop/shared';
 
 export enum GridActionTypes {
   LoadGrid = '[Grid] Load Grid',
@@ -18,7 +18,7 @@ export class GridLoadError implements Action {
 
 export class GridLoaded implements Action {
   readonly type = GridActionTypes.GridLoaded;
-  constructor(public payload: Entity[]) {}
+  constructor(public payload: Target[]) {}
 }
 
 export type GridAction = LoadGrid | GridLoaded | GridLoadError;

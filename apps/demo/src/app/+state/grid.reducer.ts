@@ -1,4 +1,5 @@
 import { GridAction, GridActionTypes } from './grid.actions';
+import { Target } from '@performance-workshop/shared';
 
 export const GRID_FEATURE_KEY = 'grid';
 
@@ -10,14 +11,9 @@ export const GRID_FEATURE_KEY = 'grid';
  *  Note: replace if already defined in another module
  */
 
-/* tslint:disable:no-empty-interface */
-export interface Entity {}
-
 export interface GridState {
-  list: Entity[]; // list of Grid; analogous to a sql normalized table
-  selectedId?: string | number; // which Grid record has been selected
-  loaded: boolean; // has the Grid list been loaded
-  error?: any; // last none error (if any)
+  grid: Target[];
+  loaded: boolean;
 }
 
 export interface GridPartialState {
@@ -25,7 +21,7 @@ export interface GridPartialState {
 }
 
 export const initialState: GridState = {
-  list: [],
+  grid: [],
   loaded: false
 };
 
@@ -37,7 +33,7 @@ export function gridReducer(
     case GridActionTypes.GridLoaded: {
       state = {
         ...state,
-        list: action.payload,
+        grid: action.payload,
         loaded: true
       };
       break;

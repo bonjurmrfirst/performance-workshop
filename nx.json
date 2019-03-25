@@ -13,6 +13,9 @@
     },
     "demo-e2e": {
       "tags": []
+    },
+    "shared": {
+      "tags": []
     }
   }
 }

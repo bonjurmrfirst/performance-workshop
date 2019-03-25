@@ -46,7 +46,10 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
+    "ts-jest": "24.0.0",
+    "@angular-devkit/build-ng-packagr": "~0.13.0",
     "@ngrx/store-devtools": "7.2.0",
+    "ng-packagr": "^4.2.0",
     "ngrx-store-freeze": "0.2.4",
     "jest-preset-angular": "7.0.0",
     "@nrwl/builders": "7.7.2",
@@ -63,6 +66,8 @@
     "@types/node": "~8.9.4",
     "dotenv": "6.2.0",
     "ts-node": "~7.0.0",
+    "tsickle": ">=0.34.0",
+    "tslib": "^1.9.0",
     "tslint": "~5.11.0",
     "typescript": "3.2.2",
     "prettier": "1.15.2"
