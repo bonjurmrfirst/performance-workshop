@@ -5,5 +5,5 @@ export const api = (req, res) => {
 };
 
 export const targets = (req, res) => {
-  res.json(<Target[]>[{ id: 'id1', name: 'name1', lan: 1, lng: 2 }]);
+  res.json(<Target[]>[{ id: '1', name: 'name1', lat: 1, lng: 2 }]);
 };

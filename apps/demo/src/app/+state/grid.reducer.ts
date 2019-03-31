@@ -1,5 +1,6 @@
 import { GridAction, GridActionTypes } from './grid.actions';
 import { Target } from '@performance-workshop/shared';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export const GRID_FEATURE_KEY = 'grid';
 
@@ -41,3 +42,7 @@ export function gridReducer(
   }
   return state;
 }
+
+export const getGridState = createFeatureSelector<GridState>(GRID_FEATURE_KEY);
+
+export const getGrid = createSelector(getGridState, gridState => gridState.grid);

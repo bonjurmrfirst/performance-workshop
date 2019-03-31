@@ -46,7 +46,8 @@
               "apps/demo/src/assets"
             ],
             "styles": [
-              "apps/demo/src/styles.scss"
+              "apps/demo/src/styles.scss",
+              "node_modules/bulma/css/bulma.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

@@ -17,9 +17,13 @@ import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { HttpClientModule } from '@angular/common/http';
+import { GridComponent } from './components/grid.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    GridComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
