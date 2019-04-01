@@ -1,8 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromGrid from '../+state/grid.reducer';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Target } from '@performance-workshop/shared';
+import Dygraph from 'dygraphs';
+
+export const dygraphConfig = {
+  axisLabelFontSize: 0,
+  axisLabelWidth: 0,
+  height: 30,
+  width: 100,
+  showLabelsOnHighlight: false
+};
 
 @Component({
   selector: 'performance-workshop-grid',
@@ -11,14 +20,34 @@ import { Target } from '@performance-workshop/shared';
 })
 export class GridComponent implements OnInit {
 
-  public grid$: Observable<Target[]>;
+  public grid: Target[];
+
+  @ViewChildren('graph') elements:QueryList<ElementRef>;
+
+  private gridSubscription: Subscription;
 
   constructor(
     private store: Store<fromGrid.GridState>
   ) {}
 
   public ngOnInit(): void {
-    this.grid$ = this.store.select(fromGrid.getGrid);
+    this.gridSubscription = this.store.select(fromGrid.getGrid)
+      .subscribe(grid => this.grid = grid);
+  }
+
+  ngAfterViewInit() {
+    this.elements.changes
+      .subscribe(() => {
+        console.log((this as any).elements.toArray()[0].nativeElement);
+
+        this.elements.toArray().forEach(((element, i) => {
+          new Dygraph(
+            element.nativeElement,
+            this.grid[i].chart,
+            dygraphConfig
+          );
+        }))
+      });
   }
 
 }

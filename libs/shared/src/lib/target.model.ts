@@ -3,4 +3,5 @@ export interface Target {
   name: string;
   lat: number;
   lng: number;
+  chart: string;
 }

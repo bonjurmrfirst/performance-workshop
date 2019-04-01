@@ -4,8 +4,8 @@
   "newProjectRoot": "",
   "projects": {
     "demo": {
-      "root": "apps/demo/",
-      "sourceRoot": "apps/demo/src",
+      "root": ".",
+      "sourceRoot": ".",
       "projectType": "application",
       "prefix": "performance-workshop",
       "schematics": {
@@ -43,7 +43,9 @@
             "tsConfig": "apps/demo/tsconfig.app.json",
             "assets": [
               "apps/demo/src/favicon.ico",
-              "apps/demo/src/assets"
+              "apps/demo/src/assets",
+              "node_modules/dygraphs/dist/dygraphs.js"
+
             ],
             "styles": [
               "apps/demo/src/styles.scss",
