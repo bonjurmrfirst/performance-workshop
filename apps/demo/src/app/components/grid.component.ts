@@ -1,7 +1,14 @@
-import { Component, ContentChildren, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromGrid from '../+state/grid.reducer';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Target } from '@performance-workshop/shared';
 import Dygraph from 'dygraphs';
 
@@ -18,7 +25,7 @@ export const dygraphConfig = {
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements OnInit {
+export class GridComponent implements OnInit, AfterViewInit {
 
   public grid: Target[];
 
@@ -35,7 +42,7 @@ export class GridComponent implements OnInit {
       .subscribe(grid => this.grid = grid);
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.elements.changes
       .subscribe(() => {
         console.log((this as any).elements.toArray()[0].nativeElement);
