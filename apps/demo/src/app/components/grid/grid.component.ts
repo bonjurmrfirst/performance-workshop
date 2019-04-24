@@ -61,7 +61,7 @@ export class GridComponent implements OnInit, AfterViewInit {
       });
   }
 
-  public getCalcField(calcField: number): number {console.log(calcField)
+  public getCalcField(calcField: number): number {
     function fibonacci(num) {
       if (num <= 1) return 1;
 
