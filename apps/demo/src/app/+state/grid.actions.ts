@@ -4,7 +4,8 @@ import { Target } from '@performance-workshop/shared';
 export enum GridActionTypes {
   LoadGrid = '[Grid] Load Grid',
   GridLoaded = '[Grid] Grid Loaded',
-  GridLoadError = '[Grid] Grid Load Error'
+  GridLoadError = '[Grid] Grid Load Error',
+  LiveUpdate = '[Live Update] Live Update Received'
 }
 
 export class LoadGrid implements Action {
@@ -21,10 +22,16 @@ export class GridLoaded implements Action {
   constructor(public payload: Target[]) {}
 }
 
-export type GridAction = LoadGrid | GridLoaded | GridLoadError;
+export class LiveUpdate implements Action {
+  readonly type = GridActionTypes.LiveUpdate;
+  constructor(public payload: Target[]) {}
+}
+
+export type GridAction = LoadGrid | GridLoaded | GridLoadError | LiveUpdate;
 
 export const fromGridActions = {
   LoadGrid,
   GridLoaded,
-  GridLoadError
+  GridLoadError,
+  LiveUpdate
 };

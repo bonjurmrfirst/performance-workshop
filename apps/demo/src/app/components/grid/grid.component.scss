@@ -1,0 +1,13 @@
+.grid {
+
+  &__row {
+
+    &--highlight {
+      background-color: lightblue;
+    }
+  }
+}
+
+table td {
+  padding: 0.1rem;
+}

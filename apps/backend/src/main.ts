@@ -11,8 +11,27 @@ const port = process.env.port || 3333;
 const app = express();
 const http = require('http').Server(app);
 
+import { MOCK_ITEMS_COUNT, store } from './app/controller';
+import { randomIntFromInterval } from './app/helpers';
 
+setInterval(() => {
+  console.log('Live Update');
 
+  const itemsToUpdate = randomIntFromInterval(1, MOCK_ITEMS_COUNT);
+  const updates = [];
+
+  for (let i = 0; i < itemsToUpdate; i++) {
+    const item = randomIntFromInterval(1, MOCK_ITEMS_COUNT);
+
+    updates.push(store[item] = {
+      ...store[item],
+      lat: Math.random(),
+      lng: Math.random()
+    });
+  }
+
+  setImmediate(() => io.sockets.emit('Live Update', updates));
+}, 3000);
 
 const io = require('socket.io')(http);
 io.origins('*:*');
@@ -20,8 +39,6 @@ io.origins('*:*');
 io.on('connection', function(socket){
   console.log('a user connected');
 });
-
-
 
 app.use(morgan('combined'));
 

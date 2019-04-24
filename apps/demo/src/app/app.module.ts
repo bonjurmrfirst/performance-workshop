@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import {
-  GRID_FEATURE_KEY,
   initialState as gridInitialState,
   gridReducer
 } from './+state/grid.reducer';
@@ -17,12 +16,14 @@ import { environment } from '../environments/environment';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { HttpClientModule } from '@angular/common/http';
-import { GridComponent } from './components/grid.component';
+import { GridComponent } from './components/grid/grid.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GridComponent
+    GridComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

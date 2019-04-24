@@ -3,6 +3,11 @@ import { Store } from '@ngrx/store';
 import * as fromGrid from './+state/grid.reducer';
 import { LoadGrid } from './+state/grid.actions';
 import { LiveUpdateService } from './services/live-update.service';
+import { select } from '@ngrx/store';
+import { getIsLoaded, getLiveUpdates } from './+state/grid.reducer';
+import { map } from 'rxjs/operators';
+import { Target } from '@performance-workshop/shared';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'performance-workshop-root',
@@ -10,6 +15,8 @@ import { LiveUpdateService } from './services/live-update.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  public isLoaded$: Observable<boolean>;
 
   constructor(
     private store: Store<fromGrid.GridState>,
@@ -22,6 +29,8 @@ export class AppComponent implements OnInit {
     this.liveUpdateService.getMessages().subscribe(message => {
       console.log(message);
     });
+
+    this.isLoaded$ = this.store.pipe(select(getIsLoaded));
   }
 
 }
