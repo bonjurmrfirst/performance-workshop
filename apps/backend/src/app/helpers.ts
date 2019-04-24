@@ -1,5 +1,5 @@
 export function chart() {
-  const MOCK_HISTORY_DAYS_COUNT = 10;
+  const MOCK_HISTORY_DAYS_COUNT = 100;
   const getDate = (el, i) =>
     `${new Date().setDate(new Date().getDate() - MOCK_HISTORY_DAYS_COUNT + i)}, ${Math.random() * 100} \n`;
 

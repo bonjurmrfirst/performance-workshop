@@ -31,7 +31,7 @@ setInterval(() => {
   }
 
   setImmediate(() => io.sockets.emit('Live Update', updates));
-}, 3000);
+}, 1000);
 
 const io = require('socket.io')(http);
 io.origins('*:*');
