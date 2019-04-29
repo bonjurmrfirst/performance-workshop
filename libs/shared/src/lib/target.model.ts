@@ -3,6 +3,7 @@ export interface Target {
   name: string;
   lat: number;
   lng: number;
-  calcField: number;
+  index: number;
+  data: number[];
   chart: string;
 }
