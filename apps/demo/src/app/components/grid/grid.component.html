@@ -1,30 +1,28 @@
-<div class="grid">
-  <table>
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th><abbr title="Latitude">Lat</abbr></th>
-      <th><abbr title="Longitude">Lng</abbr></th>
-      <th><abbr title="Chart">Crt</abbr></th>
-    </tr>
-    </thead>
-    <tfoot>
-    <tr>
-      <th>Name</th>
-      <th><abbr title="Latitude">Lat</abbr></th>
-      <th><abbr title="Longitude">Lng</abbr></th>
-      <th><abbr title="Chart">Crt</abbr></th>
-    </tr>
-    </tfoot>
-    <tbody>
-    <tr *ngFor="let target of grid" [class.grid__row--highlight]="isHighlighted(target.id)">
-      <td class="size">{{target.name}}</td>
-      <td class="size">{{target.lat}}</td>
-      <td class="size">{{target.lng}}</td>
-      <td class="size">{{getCalcField(target.calcField)}}</td>
-      <td><div style="width: 200px; height: 30px;" id="div_g" #graph></div></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<table class="grid">
+  <thead>
+  <tr>
+    <th class="grid__header">Id</th>
+    <th class="grid__header">Name</th>
+    <th class="grid__header"><abbr title="Latitude">Lat</abbr></th>
+    <th class="grid__header"><abbr title="Longitude">Lng</abbr></th>
+    <th class="grid__header"><abbr title="Chart">Crt</abbr></th>
+  </tr>
+  </thead>
+  <tfoot>
+  <tr>
+    <th>Name</th>
+    <th><abbr title="Latitude">Lat</abbr></th>
+    <th><abbr title="Longitude">Lng</abbr></th>
+    <th><abbr title="Chart">Crt</abbr></th>
+  </tr>
+  </tfoot>
+  <tbody>
+  <tr *ngFor="let target of grid" [class.grid__row--highlight]="isHighlighted(target.id)">
+    <td class="size">{{target.name}}</td>
+    <td class="size">{{target.lat}}</td>
+    <td class="size">{{target.lng}}</td>
+    <td class="size">{{getCalcField(target.calcField)}}</td>
+    <td><div style="width: 200px; height: 30px;" id="div_g" #graph></div></td>
+  </tr>
+  </tbody>
+</table>

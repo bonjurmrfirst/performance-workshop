@@ -1,9 +1,14 @@
 .grid {
+  &__header {
+    text-align: center;
+  }
 
   &__row {
 
     &--highlight {
+      color: white;
       background-color: lightblue;
+      transition: 0.5s;
     }
   }
 }
