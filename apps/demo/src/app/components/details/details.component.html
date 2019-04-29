@@ -1,3 +1,8 @@
 <div class="details">
-  Details
+  {{s}}
+  <div *ngFor="let target of processedGrid">
+    <span *ngFor="let record of target.data">
+        {{record}}
+    </span>
+  </div>
 </div>
