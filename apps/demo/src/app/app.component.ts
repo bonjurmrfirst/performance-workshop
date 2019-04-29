@@ -4,9 +4,7 @@ import * as fromGrid from './+state/grid.reducer';
 import { LoadGrid } from './+state/grid.actions';
 import { LiveUpdateService } from './services/live-update.service';
 import { select } from '@ngrx/store';
-import { getIsLoaded, getLiveUpdates } from './+state/grid.reducer';
-import { map } from 'rxjs/operators';
-import { Target } from '@performance-workshop/shared';
+import { getIsLoaded } from './+state/grid.reducer';
 import { Observable } from 'rxjs';
 
 @Component({

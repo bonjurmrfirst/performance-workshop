@@ -1,17 +1,15 @@
 import { Target } from '@performance-workshop/shared';
 import { chart } from './helpers';
-import { MOCK_ITEMS_COUNT } from './configuration';
+import { MOCK_DATA_FIELD_LENGTH, MOCK_ITEMS_COUNT } from './configuration';
 
 const casual = require('casual');
 const chartFactory = chart();
-
-
 
 export const store: Target[] = <Target[]>new Array(MOCK_ITEMS_COUNT + 1)
   .fill(() => null)
   .map(() => ({
     id: casual.uuid,
-    data: casual.array_of_doubles(700),
+    data: casual.array_of_doubles(MOCK_DATA_FIELD_LENGTH),
     name: casual.name,
     lat: casual.random,
     lng: casual.random,
