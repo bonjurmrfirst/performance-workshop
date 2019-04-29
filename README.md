@@ -11,10 +11,14 @@ Start Backend:<br>
 `ng serve backend`
 
 
-[TODO]
-performance cases
+[CASES:TODO] rendering optimization<br>
+[CASES:TODO] run outside<br>
+[CASES:TODO] throttle/debounce? 
 
-[DONE]
-implement basic infrastructure
-implement backend websocket connection
-fetch and show basic data
+[SETUP:DONE] implement basic infrastructure<br>
+[SETUP:DONE] implement backend websocket connection<br>
+[SETUP:DONE] fetch and show basic data<br>
+[SETUP:DONE] live updates, details component<br>
+[CASES:DONE] memory leak<br>
+[CASES:DONE] memoization
+
