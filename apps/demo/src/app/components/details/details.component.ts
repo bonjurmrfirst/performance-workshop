@@ -22,7 +22,17 @@ import * as clone from 'clone';
 })
 export class DetailsComponent implements OnInit {
 
-  @Input() public id: string;
+  private _id: string;
+
+  @Input() public set id(id: string) {
+    this._id = id;
+    this.lastUpdatedAt = new Date();
+  }
+
+  public get id(): string {
+    return this._id;
+  }
+
   @Input() public grid: Target[];
 
   processedGrid: Target[];
@@ -38,10 +48,13 @@ x;s;
     this.processedGrid[0].data.map((record, i, data) => i === 0 ? record : record + data[i - 1]);
 
     this.x = () => {
-      setInterval(() => this.s = `Details of ${this.processedGrid.find(target => target.id === this.id).name} might be outdated. Last updated at ${this.lastUpdatedAt.toLocaleTimeString()}`, 1000);
+      setInterval(() => {
+        this.s = `Details of ${this.processedGrid.find(target => target.id === this.id).name} might be outdated. Last updated ${Math.round((new Date().getTime() - this.lastUpdatedAt.getTime()) / 1000)} seconds ago`;
+        console.log('1');
+      }, 1000);
     };
 
-    window.addEventListener('scroll', this.x);
+    window.addEventListener('click', this.x);
   }
 
   public ngOnDestroy(): void {
