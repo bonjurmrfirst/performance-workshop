@@ -12,7 +12,7 @@ import * as clone from 'clone';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
 
   private _id: string;
 
@@ -31,6 +31,16 @@ export class DetailsComponent implements OnInit {
   public warningMsg: string;
 
   private lastUpdatedAt: Date;
+  private onCopy: () => void = () => {
+    clearInterval(this.intervalId);
+
+    this.intervalId = setInterval(() => {
+      const name = this.processedGrid.find(target => target.id === this.id).name;
+      const expirationTime = Math.round((new Date().getTime() - this.lastUpdatedAt.getTime()) / 1000);
+
+      this.warningMsg = `Details of ${name} might be outdated. Last updated ${expirationTime} seconds ago`;
+    }, 1000);
+  };
   private intervalId: NodeJS.Timer;
 
   public ngOnInit(): void {
@@ -40,16 +50,12 @@ export class DetailsComponent implements OnInit {
 
     this.processedGrid[0].data.map((record, i, data) => i === 0 ? record : record + data[i - 1]);
 
-    document.addEventListener('copy', () => {
-      clearInterval(this.intervalId);
+    document.addEventListener('copy', this.onCopy);
+  }
 
-      this.intervalId = setInterval(() => {
-        const name = this.processedGrid.find(target => target.id === this.id).name;
-        const expirationTime = Math.round((new Date().getTime() - this.lastUpdatedAt.getTime()) / 1000);
-
-        this.warningMsg = `Details of ${name} might be outdated. Last updated ${expirationTime} seconds ago`;
-      }, 1000);
-    });
+  public ngOnDestroy(): void {
+    window.removeEventListener('copy', this.onCopy);
+    clearInterval(this.intervalId);
   }
 
 }
