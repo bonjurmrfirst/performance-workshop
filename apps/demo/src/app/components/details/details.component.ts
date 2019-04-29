@@ -1,9 +1,18 @@
 import {
+  AfterViewInit,
   Component,
-  Input,
-  OnInit
+  ElementRef, Input,
+  OnInit,
+  QueryList,
+  ViewChildren
 } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import * as fromGrid from '../../+state/grid.reducer';
+import { Subscription } from 'rxjs';
 import { Target } from '@performance-workshop/shared';
+import Dygraph from 'dygraphs';
+import { getLiveUpdates } from '../../+state/grid.reducer';
+import { map } from 'rxjs/operators';
 import * as clone from 'clone';
 
 @Component({
@@ -26,10 +35,19 @@ export class DetailsComponent implements OnInit {
 
   @Input() public grid: Target[];
 
-  public warningMsg: string;
   public processedGrid: Target[];
+  public warningMsg: string;
 
   private lastUpdatedAt: Date;
+  private onCopy: () => void = () => {
+    console.log('A');
+    clearInterval(this.intervalId);
+    this.intervalId = setInterval(() => {
+      this.warningMsg = `Details of ${this.processedGrid.find(target => target.id === this.id).name} might be outdated. Last updated ${Math.round((new Date().getTime() - this.lastUpdatedAt.getTime()) / 1000)} seconds ago`;
+      console.log('B');
+    }, 1000);
+  };
+  private intervalId: any;
 
   public ngOnInit(): void {
     this.lastUpdatedAt = new Date();
@@ -38,14 +56,12 @@ export class DetailsComponent implements OnInit {
 
     this.processedGrid[0].data.map((record, i, data) => i === 0 ? record : record + data[i - 1]);
 
-    window.addEventListener('click', () => {
-      const name = this.processedGrid.find(target => target.id === this.id).name;
-      const expiration = Math.round((new Date().getTime() - this.lastUpdatedAt.getTime()) / 1000);
+    document.addEventListener('copy', this.onCopy);
+  }
 
-      setInterval(() => {
-        this.warningMsg = `Details of ${name} might be outdated. Last updated ${expiration} seconds ago`;
-      }, 1000);
-    });
+  public ngOnDestroy(): void {
+    window.removeEventListener('copy', this.onCopy);
+    clearInterval(this.intervalId);
   }
 
 }
