@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef, Input,
+  ElementRef, Input, OnDestroy,
   OnInit,
   QueryList,
   ViewChildren
@@ -20,7 +20,7 @@ import * as clone from 'clone';
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
 
   private _id: string;
 
