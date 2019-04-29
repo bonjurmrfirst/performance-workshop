@@ -18,7 +18,8 @@
   </tr>
   </tfoot>
   <tbody>
-  <tr *ngFor="let target of grid" [class.grid__row--highlight]="isHighlighted(target.id)">
+  <tr *ngFor="let target of grid" [class.grid__row--highlight]="isHighlighted(target.id)"
+      (click)="onTargetClick(target.id)">
     <td class="size">{{target.name}}</td>
     <td class="size">{{target.lat}}</td>
     <td class="size">{{target.lng}}</td>
@@ -27,3 +28,8 @@
   </tr>
   </tbody>
 </table>
+
+<performance-workshop-details *ngIf="selectedTargetId"
+                              [grid]="grid"
+                              [id]="selectedTargetId">
+</performance-workshop-details>

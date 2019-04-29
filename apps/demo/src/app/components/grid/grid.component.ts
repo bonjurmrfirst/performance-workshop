@@ -29,11 +29,12 @@ export const dygraphConfig = {
 })
 export class GridComponent implements OnInit, AfterViewInit {
 
-  public grid: Target[];
-  private liveUpdates: Target[];
-
   @ViewChildren('graph') elements:QueryList<ElementRef>;
 
+  public grid: Target[];
+  public selectedTargetId: string;
+
+  private liveUpdates: Target[];
   private gridSubscription: Subscription;
 
   constructor(
@@ -77,6 +78,16 @@ export class GridComponent implements OnInit, AfterViewInit {
     }
 
     return this.liveUpdates.some(item => item.id === id);
+  }
+
+  public onTargetClick(id: string): void {
+    if (id === this.selectedTargetId) {
+      this.selectedTargetId = null;
+
+      return;
+    }
+
+    this.selectedTargetId = id;
   }
 
 }

@@ -18,11 +18,13 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { HttpClientModule } from '@angular/common/http';
 import { GridComponent } from './components/grid/grid.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { DetailsComponent } from './components/details/details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GridComponent,
+    DetailsComponent,
     LoaderComponent
   ],
   imports: [

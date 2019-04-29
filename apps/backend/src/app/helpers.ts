@@ -1,3 +1,5 @@
+import { MOCK_DATA_FIELD_LENGTH } from './configuration';
+
 export function chart() {
   const MOCK_HISTORY_DAYS_COUNT = 100;
   const getDate = (el, i) =>
@@ -8,6 +10,10 @@ export function chart() {
     .map(getDate)
     .join('');
 }
+
+export const getTargetData = (): number[] => new Array(MOCK_DATA_FIELD_LENGTH)
+  .fill(null)
+  .map(item => Math.round(Math.random() * 1000));
 
 export function getRandomInteger(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
