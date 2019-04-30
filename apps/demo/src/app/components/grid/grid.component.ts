@@ -9,7 +9,7 @@ import {
 import { select, Store } from '@ngrx/store';
 import * as fromGrid from '../../+state/grid.reducer';
 import { Subscription } from 'rxjs';
-import { Target } from '@performance-workshop/shared';
+import { memoizeRecursive, Target } from '@performance-workshop/shared';
 import Dygraph from 'dygraphs';
 import { getLiveUpdates } from '../../+state/grid.reducer';
 import { map } from 'rxjs/operators';
@@ -62,14 +62,14 @@ export class GridComponent implements OnInit, AfterViewInit {
       });*/
   }
 
+  public fibonacciMemoized = memoizeRecursive((num) => {
+    if (num <= 1) return 1;
+
+    return this.fibonacciMemoized(num - 1) + this.fibonacciMemoized(num - 2);
+  });
+
   public getCalcField(calcField: number): number {
-    function fibonacci(num) {
-      if (num <= 1) return 1;
-
-      return fibonacci(num - 1) + fibonacci(num - 2);
-    }
-
-    return fibonacci(calcField);
+    return this.fibonacciMemoized(calcField);
   }
 
   public isHighlighted(id: string): boolean {
