@@ -13,6 +13,7 @@ Start Backend:<br>
 
 [CASES:TODO] rendering optimization<br>
 [CASES:TODO] run outside<br>
+[CASES:TODO] run webworkers<br>
 [CASES:TODO] throttle/debounce? 
 
 [SETUP:DONE] implement basic infrastructure<br>
