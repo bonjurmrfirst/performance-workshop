@@ -43,7 +43,18 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.gridSubscription = this.store.select(fromGrid.getGrid)
-      .subscribe(grid => this.grid = grid);
+      .subscribe(grid => {
+        const t0 = performance.now();
+
+        this.grid = grid.map(target => {
+          target.index = this.getCalculatedField(target.index);
+
+          return target;
+        });
+
+        const t1 = performance.now();
+        console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.")
+    });
 
     this.store.pipe(select(getLiveUpdates), map(liveUpdates => liveUpdates.slice(-1)[0]))
       .subscribe(liveUpdates => this.liveUpdates = liveUpdates);
