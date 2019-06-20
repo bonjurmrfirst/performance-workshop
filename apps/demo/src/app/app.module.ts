@@ -35,8 +35,7 @@ import { DetailsComponent } from './components/details/details.component';
     StoreModule.forRoot(
       { grid: gridReducer },
       {
-        initialState: { grid: gridInitialState },
-        metaReducers: !environment.production ? [storeFreeze] : []
+        initialState: { grid: gridInitialState }
       }
     ),
     StoreDevtoolsModule.instrument({
