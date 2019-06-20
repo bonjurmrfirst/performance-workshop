@@ -75,9 +75,16 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   public getCalculatedField(calcField: number): number {
     function fibonacci(num) {
-      if (num <= 1) return 1;
+      let n1 = 1;
+      let n2 = 1;
 
-      return fibonacci(num - 1) + fibonacci(num - 2);
+      for (var i = 3; i <= num; i++) {
+        const sum = n1 + n2;
+        n1 = n2;
+        n2 = sum;
+      }
+
+      return n2;
     }
 
     return fibonacci(calcField);
