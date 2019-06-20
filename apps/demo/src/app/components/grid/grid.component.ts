@@ -4,7 +4,8 @@ import {
   ElementRef,
   OnInit,
   QueryList,
-  ViewChildren
+  ViewChildren,
+  OnDestroy
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as fromGrid from '../../+state/grid.reducer';
@@ -27,7 +28,7 @@ export const dygraphConfig = {
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss']
 })
-export class GridComponent implements OnInit, AfterViewInit {
+export class GridComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChildren('graph') elements:QueryList<ElementRef>;
 
@@ -36,6 +37,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   private liveUpdates: Target[];
   private gridSubscription: Subscription;
+  private liveUpdateSubscription: Subscription;
 
   constructor(
     private store: Store<fromGrid.GridState>
@@ -45,7 +47,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.gridSubscription = this.store.select(fromGrid.getGrid)
       .subscribe(grid => this.grid = grid);
 
-    this.store.pipe(select(getLiveUpdates), map(liveUpdates => liveUpdates.slice(-1)[0]))
+    this.liveUpdateSubscription = this.store.pipe(select(getLiveUpdates), map(liveUpdates => liveUpdates.slice(-1)[0]))
       .subscribe(liveUpdates => this.liveUpdates = liveUpdates);
   }
 
@@ -88,6 +90,11 @@ export class GridComponent implements OnInit, AfterViewInit {
     }
 
     this.selectedTargetId = id;
+  }
+
+  public ngOnDestroy(): void {
+    this.gridSubscription.unsubscribe();
+    this.liveUpdateSubscription.unsubscribe();
   }
 
 }
