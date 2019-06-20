@@ -13,6 +13,7 @@ import { Target } from '@performance-workshop/shared';
 import Dygraph from 'dygraphs';
 import { getLiveUpdates } from '../../+state/grid.reducer';
 import { map } from 'rxjs/operators';
+import { memoize } from 'apps/demo/src/lib/memoize';
 
 export const dygraphConfig = {
   axisLabelFontSize: 0,
@@ -46,8 +47,10 @@ export class GridComponent implements OnInit, AfterViewInit {
       .subscribe(grid => {
         const t0 = performance.now();
 
+        const memoizedGetCalculatedField = memoize(this.getCalculatedField);
+
         this.grid = grid.map(target => {
-          target.index = this.getCalculatedField(target.index);
+          target.index = memoizedGetCalculatedField(target.index);
 
           return target;
         });
