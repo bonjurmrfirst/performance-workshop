@@ -13,7 +13,7 @@ const io = require('socket.io')(http);
 io.origins('*:*');
 
 io.on('connection', function(){
-  console.log('a user connected');
+  console.log('::: User connected :::');
 });
 
 app.use(morgan('combined'));

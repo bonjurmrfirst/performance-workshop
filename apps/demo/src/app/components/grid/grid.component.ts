@@ -29,7 +29,7 @@ export const dygraphConfig = {
 })
 export class GridComponent implements OnInit, AfterViewInit {
 
-  // @ViewChildren('graph') elements:QueryList<ElementRef>;
+  @ViewChildren('graph') elements:QueryList<ElementRef>;
 
   public grid: Target[];
   public selectedTargetId: string;
@@ -50,7 +50,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    /*this.elements.changes
+    this.elements.changes
       .subscribe(() => {console.log(this.grid);
         this.elements.toArray().forEach(((element, i) => {
           new Dygraph(
@@ -59,10 +59,10 @@ export class GridComponent implements OnInit, AfterViewInit {
             dygraphConfig
           );
         }))
-      });*/
+      });
   }
 
-  public getCalcField(calcField: number): number {
+  public getCalculatedField(calcField: number): number {
     function fibonacci(num) {
       if (num <= 1) return 1;
 

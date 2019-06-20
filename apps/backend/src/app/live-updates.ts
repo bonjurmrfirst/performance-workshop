@@ -21,7 +21,7 @@ export const generateLiveUpdate = (cb: (update: Target[]) => void): void => {
     setImmediate(() => {
       cb(updates);
 
-      console.log(':::Live Update Sent:::');
+      console.log('::: Live Update Sent :::');
     });
   }, LIVE_UPDATES_INTERVAL);
 };

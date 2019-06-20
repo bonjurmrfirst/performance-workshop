@@ -31,7 +31,7 @@ export class DetailsComponent implements OnInit {
   public warningMsg: string;
 
   private lastUpdatedAt: Date;
-  private intervalId: NodeJS.Timer;
+  private intervalId: any;
 
   public ngOnInit(): void {
     this.lastUpdatedAt = new Date();
