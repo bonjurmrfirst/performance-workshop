@@ -13,7 +13,7 @@ export const store: Target[] = <Target[]>new Array(MOCK_ITEMS_COUNT + 1)
     name: casual.name,
     lat: casual.random,
     lng: casual.random,
-    index: ~~(Math.random() * 20),
+    index: 1,
     chart: chartFactory()
   }));
 

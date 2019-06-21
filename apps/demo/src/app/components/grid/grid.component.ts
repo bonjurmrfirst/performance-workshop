@@ -4,15 +4,17 @@ import {
   ElementRef,
   OnInit,
   QueryList,
-  ViewChildren
+  ViewChildren,
+  HostListener,
+  ViewChild
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as fromGrid from '../../+state/grid.reducer';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { Target } from '@performance-workshop/shared';
 import Dygraph from 'dygraphs';
 import { getLiveUpdates } from '../../+state/grid.reducer';
-import { map } from 'rxjs/operators';
+import { map, throttle, throttleTime } from 'rxjs/operators';
 
 export const dygraphConfig = {
   axisLabelFontSize: 0,
@@ -29,13 +31,15 @@ export const dygraphConfig = {
 })
 export class GridComponent implements OnInit, AfterViewInit {
 
-  @ViewChildren('graph') elements:QueryList<ElementRef>;
+  @ViewChildren('graph') elements: QueryList<ElementRef>;
+  @ViewChild('table') table: ElementRef;
 
   public grid: Target[];
   public selectedTargetId: string;
 
   private liveUpdates: Target[];
   private gridSubscription: Subscription;
+  private scrollSubscription: Subscription;
 
   constructor(
     private store: Store<fromGrid.GridState>
@@ -50,6 +54,12 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
+    this.scrollSubscription = fromEvent(window, 'scroll').pipe(
+      throttleTime(500)
+    ).subscribe(() => {
+        console.log(Math.abs(Math.trunc(this.table.nativeElement.getBoundingClientRect().top / 32)));
+      });
+
     this.elements.changes
       .subscribe(() => {console.log(this.grid);
         this.elements.toArray().forEach(((element, i) => {
@@ -88,6 +98,10 @@ export class GridComponent implements OnInit, AfterViewInit {
     }
 
     this.selectedTargetId = id;
+  }
+
+  ngOnDestroy(): void {
+    this.scrollSubscription.unsubscribe();
   }
 
 }
